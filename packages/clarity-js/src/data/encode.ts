@@ -53,9 +53,20 @@ export default function(event: Event): void {
             queue(tokens, false);
             break;
         case Event.Custom:
-            tokens.push(custom.data.key);
-            tokens.push(custom.data.value);
-            queue(tokens);
+            let customEventKeys = Object.keys(custom.data);
+            if (customEventKeys.length > 0) {
+                for (let eventKey of customEventKeys) {
+                    let customEventValues = Object.values(custom.data[eventKey]);
+                    if (customEventValues.length > 0) {
+                        for (const value of customEventValues) {
+                            tokens.push(eventKey);
+                            tokens.push(value);
+                        }
+                    }
+                }
+                custom.reset();
+                queue(tokens);
+            }
             break;
         case Event.Variable:
             let variableKeys = Object.keys(variable.data);

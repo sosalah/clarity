@@ -32,7 +32,7 @@ export function start(config: Config = null): void {
 // performance impact even further. For reference, we are talking single digit milliseconds optimization here, not seconds.
 export function pause(): void {
   if (core.active()) {
-    data.event(Constant.Clarity, Constant.Pause);
+    data.event(Constant.Clarity, [Constant.Pause]);
     task.pause();
   }
 }
@@ -41,7 +41,7 @@ export function pause(): void {
 export function resume(): void {
   if (core.active()) {
     task.resume();
-    data.event(Constant.Clarity, Constant.Resume);
+    data.event(Constant.Clarity, [Constant.Resume]);
   }
 }
 

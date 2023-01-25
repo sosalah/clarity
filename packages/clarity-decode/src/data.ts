@@ -12,7 +12,11 @@ export function decode(tokens: Data.Token[]): DataEvent {
             let limit: Data.LimitData = { check: tokens[2] as number };
             return { time, event, data: limit };
         case Data.Event.Custom:
-            let custom: Data.CustomData = { key: tokens[2] as string, value: tokens[3] as string };
+            let c = 2; // Start from 3rd index since first two are used for time & event
+            let custom: Data.CustomData = {};
+            while (c < tokens.length) {
+                custom[tokens[c++] as string] = typeof tokens[c + 1] === Constant.String ? [tokens[c++] as string] : tokens[c++] as string[];
+            }
             return { time, event, data: custom };
         case Data.Event.Upgrade:
             let upgrade: Data.UpgradeData = { key: tokens[2] as string };

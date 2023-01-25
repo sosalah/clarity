@@ -371,13 +371,10 @@ export interface VariableData {
     [name: string]: string[];
 }
 
-// Eventually custom event can be expanded to contain more properties
-// For now, restricting to key value pair where both key & value are strings
 // The way it's different from variable is that Custom Event has a notion of time
 // Whereas variables have no timing element and eventually will turn into custom dimensions
 export interface CustomData {
-    key: string;
-    value: string;
+    [key: string]: (string | number)[];
 }
 
 export interface MetricData {
